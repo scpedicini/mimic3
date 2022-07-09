@@ -1,3 +1,6 @@
+# Changes
+
+Pre-download all English TTS voices because python urlopen requests error out with SSL issues.
 # Mimic 3
 
 ![mimic 3 mark 2](img/mimic3-hero.jpg)
