@@ -60,7 +60,11 @@ RUN --mount=type=cache,id=pip-requirements,target=/root/.cache/pip \
 # Download default voice
 COPY voices/ /root/.local/share/mycroft/mimic3/voices/
 RUN .venv/bin/mimic3-download --debug 'en_UK/apope_low'
-
+RUN .venv/bin/mimic3-download --debug 'en_US/cmu-arctic_low'
+RUN .venv/bin/mimic3-download --debug 'en_US/hifi-tts_low'
+RUN .venv/bin/mimic3-download --debug 'en_US/ljspeech_low'
+RUN .venv/bin/mimic3-download --debug 'en_US/m-ailabs_low'
+RUN .venv/bin/mimic3-download --debug 'en_US/vctk_low'
 # -----------------------------------------------------------------------------
 
 FROM debian:bullseye as run

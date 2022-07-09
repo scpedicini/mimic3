@@ -18,10 +18,11 @@
 # Run mimic3-server --update to update Docker image
 
 args=()
-repo='mycroftai/mimic3'
+repo='specularrealms/mimic-with-voices'
 tag='latest'
 docker='docker'
-port='59125'
+hostport='50101'
+dockerport='59125'
 
 while [[ -n "$1" ]]; do
     if [[ "$1" == '--update' ]]; then
@@ -42,10 +43,6 @@ while [[ -n "$1" ]]; do
 
     shift 1
 done
-
-if [[ -n "${update}" ]]; then
-    docker pull "${repo}:${tag}"
-fi
 
 docker_run_args=()
 
@@ -73,12 +70,15 @@ if [[ -d /etc/ssl/certs ]]; then
     done < <(sort < "${cert_dirs_file}" | uniq)
 fi
 
+# old parameters
+# -e "HOME=${HOME}" \
+# -v "$HOME:${HOME}" \
+# -w "${PWD}" \
+# --user "$(id -u):$(id -g)" "${docker_run_args[@]}" \
+
+
 "${docker}" run \
             -it \
-            -p "${port}:${port}" \
-            -e "HOME=${HOME}" \
-            -v "$HOME:${HOME}" \
-            -w "${PWD}" \
-            --user "$(id -u):$(id -g)" "${docker_run_args[@]}" \
+            -p "${hostport}:${dockerport}" \
             "${repo}:${tag}" \
             "${args[@]}"
